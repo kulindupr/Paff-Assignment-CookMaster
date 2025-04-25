@@ -40,10 +40,15 @@ public class UserController {
         
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            // Verify the raw password against the hashed password
             if (passwordEncoder.verify(loginRequest.getPassword(), user.getPassword())) {
-                // Remove password from response for security
-                user.setPassword(null);
-                return ResponseEntity.ok(user);
+                // Create a response object without the password
+                User responseUser = new User();
+                responseUser.setId(user.getId());
+                responseUser.setName(user.getName());
+                responseUser.setEmail(user.getEmail());
+                responseUser.setPhone(user.getPhone());
+                return ResponseEntity.ok(responseUser);
             }
         }
         
