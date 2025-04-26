@@ -22,10 +22,6 @@ const Login: React.FC = () => {
     }));
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
-  };
-
   const validateForm = () => {
     // Check if all fields are filled
     if (!formData.email || !formData.password) {
@@ -94,31 +90,6 @@ const Login: React.FC = () => {
         <h2>Login</h2>
         {error && <div className="error-message">{error}</div>}
         
-        <div className="social-login-buttons">
-          <button 
-            type="button" 
-            className="google-button"
-            onClick={handleGoogleLogin}
-            disabled={isLoading}
-          >
-            <img 
-              src="https://www.google.com/favicon.ico" 
-              alt="Google" 
-              className="social-icon"
-            />
-            Login with Google
-          </button>
-          
-          <button className="facebook-button">
-            <img src="https://www.facebook.com/favicon.ico" alt="Facebook" className="social-icon" />
-            Login with Facebook
-          </button>
-        </div>
-
-        <div className="divider">
-          <span>OR</span>
-        </div>
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -148,23 +119,6 @@ const Login: React.FC = () => {
             disabled={isLoading}
           >
             {isLoading ? 'Logging in...' : 'Login'}
-          </button>
-          
-          <div className="divider">
-            <span>OR</span>
-          </div>
-          
-          <button 
-            type="button" 
-            className="google-button"
-            onClick={handleGoogleLogin}
-          >
-            <img 
-              src="https://www.google.com/favicon.ico" 
-              alt="Google" 
-              className="google-icon"
-            />
-            Login with Google
           </button>
           
           <p className="signup-link">

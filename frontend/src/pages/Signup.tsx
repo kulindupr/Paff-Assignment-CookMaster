@@ -25,11 +25,6 @@ const Signup: React.FC = () => {
     }));
   };
 
-  const handleGoogleLogin = () => {
-    // Redirect to Google OAuth endpoint
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
-  };
-
   const validateForm = () => {
     // Check if all fields are filled
     if (!formData.name || !formData.phone || !formData.email || !formData.password || !formData.confirmPassword) {
@@ -124,34 +119,9 @@ const Signup: React.FC = () => {
         <h2>Sign Up</h2>
         {error && <div className="error-message">{error}</div>}
         
-        <div className="social-login-buttons">
-          <button 
-            type="button" 
-            className="google-button"
-            onClick={handleGoogleLogin}
-            disabled={isLoading}
-          >
-            <img 
-              src="https://www.google.com/favicon.ico" 
-              alt="Google" 
-              className="social-icon"
-            />
-            Sign up with Google
-          </button>
-          
-          <button className="facebook-button">
-            <img src="https://www.facebook.com/favicon.ico" alt="Facebook" className="social-icon" />
-            Sign up with Facebook
-          </button>
-        </div>
-
-        <div className="divider">
-          <span>OR</span>
-        </div>
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -162,7 +132,7 @@ const Signup: React.FC = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
+            <label htmlFor="phone">Phone</label>
             <input
               type="tel"
               id="phone"
@@ -170,8 +140,6 @@ const Signup: React.FC = () => {
               value={formData.phone}
               onChange={handleChange}
               required
-              pattern="[0-9]{10}"
-              title="Please enter a 10-digit phone number"
             />
           </div>
           <div className="form-group">
@@ -194,7 +162,6 @@ const Signup: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              minLength={8}
             />
           </div>
           <div className="form-group">
@@ -206,7 +173,6 @@ const Signup: React.FC = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              minLength={8}
             />
           </div>
           <button 
@@ -215,23 +181,6 @@ const Signup: React.FC = () => {
             disabled={isLoading}
           >
             {isLoading ? 'Signing up...' : 'Sign Up'}
-          </button>
-          
-          <div className="divider">
-            <span>OR</span>
-          </div>
-          
-          <button 
-            type="button" 
-            className="google-button"
-            onClick={handleGoogleLogin}
-          >
-            <img 
-              src="https://www.google.com/favicon.ico" 
-              alt="Google" 
-              className="google-icon"
-            />
-            Sign up with Google
           </button>
           
           <p className="login-link">

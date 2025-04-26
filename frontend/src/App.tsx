@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import OAuth2Redirect from './pages/OAuth2Redirect';
 import './App.css';
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
         </Routes>
       </div>
     </Router>

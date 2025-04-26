@@ -28,12 +28,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/users").permitAll()
                 .requestMatchers("/api/users/login").permitAll()
-                .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
                 .anyRequest().authenticated()
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .defaultSuccessUrl("http://localhost:3000/oauth2/redirect")
-                .failureUrl("http://localhost:3000/login?error")
             );
 
         return http.build();
