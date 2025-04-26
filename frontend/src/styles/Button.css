@@ -1,0 +1,120 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  
+  .button.primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .button.primary:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .button.secondary {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  .button.secondary:hover {
+    background-color: var(--secondary-dark);
+  }
+  
+  .button.outline {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+  
+  .button.outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .button.ghost {
+    background-color: transparent;
+    color: var(--text-color);
+  }
+  
+  .button.ghost:hover {
+    background-color: var(--background-light);
+  }
+  
+  .button.danger {
+    background-color: var(--error-color);
+    color: white;
+  }
+  
+  .button.danger:hover {
+    background-color: #c0392b;
+  }
+  
+  .button.small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .button.medium {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .button.large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+  
+  .button.full-width {
+    width: 100%;
+  }
+  
+  .button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .button.loading {
+    position: relative;
+    color: transparent;
+  }
+  
+  .button-spinner {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 480px) {
+    .button {
+      padding: 0.5rem 1rem;
+    }
+  
+    .button.large {
+      padding: 0.75rem 1.5rem;
+    }
+  }
+  
+  
