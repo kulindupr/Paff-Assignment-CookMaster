@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FaStar, FaClock, FaUser, FaCertificate, FaUtensils, FaBook, FaVideo, FaGraduationCap, FaCheck } from 'react-icons/fa';
+import { FaStar, FaClock, FaCertificate, FaUtensils, FaBook, FaVideo, FaGraduationCap, FaCheck } from 'react-icons/fa';
 import { courses } from '../data/coursesData';
 import '../styles/CourseDetailsPage.css';
 
