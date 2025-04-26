@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.paf.skillsharing.SkillsharingApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.871 s -- in com.paf.skillsharing.SkillsharingApplicationTests
