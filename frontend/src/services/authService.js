@@ -3,20 +3,34 @@ import api from "./api"
 const authService = {
   // Register a new user
   register: async (userData) => {
-    const response = await api.post("/users/auth/register", userData)
-    return response.data
+    try {
+      const response = await api.post("/users/auth/register", userData)
+      const { token, user } = response.data
+      localStorage.setItem("token", token)
+      localStorage.setItem("user", JSON.stringify(user))
+      return user
+    } catch (error) {
+      throw error.response?.data || "Registration failed"
+    }
   },
 
   // Login user
   login: async (email, password) => {
-    const response = await api.post("/users/auth/login", { email, password })
-    return response.data
+    try {
+      const response = await api.post("/users/auth/login", { email, password })
+      const { token, user } = response.data
+      localStorage.setItem("token", token)
+      localStorage.setItem("user", JSON.stringify(user))
+      return user
+    } catch (error) {
+      throw error.response?.data || "Login failed"
+    }
   },
 
   // Get current user data
-  getCurrentUser: async () => {
-    const response = await api.get("/users/me")
-    return response.data
+  getCurrentUser: () => {
+    const userStr = localStorage.getItem("user")
+    return userStr ? JSON.parse(userStr) : null
   },
 
   // Update user profile
@@ -45,6 +59,15 @@ const authService = {
     })
     return response.data
   },
+
+  logout: () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+  },
+
+  isAuthenticated: () => {
+    return !!localStorage.getItem("token")
+  }
 }
 
 export default authService

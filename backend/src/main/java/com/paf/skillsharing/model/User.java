@@ -1,8 +1,9 @@
 package com.paf.skillsharing.model;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import lombok.Data;
+import java.util.List;
 
 @Data
 @Document(collection = "users")
@@ -13,6 +14,7 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private String phone;
-    private String role;
+    private String image;
+    private List<String> roles;
+    private boolean enabled = true;
 }

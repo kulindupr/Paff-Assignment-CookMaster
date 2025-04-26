@@ -1,109 +1,114 @@
 "use client"
 
-import { useState } from "react"
-import { FaStar } from "react-icons/fa"
-import useAuth from "../../hooks/useAuth"
-import reviewService from "../../services/reviewService"
-import "../../styles/ReviewForm.css"
+import React, { useState } from 'react';
+import { FaStar } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
+import reviewService from '../../services/reviewService';
+import '../../styles/ReviewForm.css';
 
 const ReviewForm = ({ courseId, onReviewSubmitted }) => {
-  const { currentUser } = useAuth()
-  const [rating, setRating] = useState(0)
-  const [hoverRating, setHoverRating] = useState(0)
-  const [comment, setComment] = useState("")
-  const [error, setError] = useState("")
-  const [submitting, setSubmitting] = useState(false)
-
-  const handleRatingChange = (newRating) => {
-    setRating(newRating)
-  }
-
-  const handleMouseEnter = (starIndex) => {
-    setHoverRating(starIndex)
-  }
-
-  const handleMouseLeave = () => {
-    setHoverRating(0)
-  }
-
-  const handleCommentChange = (e) => {
-    setComment(e.target.value)
-  }
+  const { currentUser } = useAuth();
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [hover, setHover] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+    
     if (!currentUser) {
-      setError("You must be logged in to submit a review")
-      return
+      setError('Please log in to submit a review');
+      return;
     }
 
     if (rating === 0) {
-      setError("Please select a rating")
-      return
+      setError('Please select a rating');
+      return;
+    }
+
+    if (!comment.trim()) {
+      setError('Please write a review comment');
+      return;
     }
 
     try {
-      setSubmitting(true)
-      setError("")
+      setSubmitting(true);
+      setError(null);
 
       const reviewData = {
+        course: { id: courseId },
+        user: { id: currentUser.id },
         rating,
-        comment,
-      }
+        comment: comment.trim()
+      };
 
-      const newReview = await reviewService.createReview(courseId, reviewData)
-      setRating(0)
-      setComment("")
-      onReviewSubmitted(newReview)
+      const newReview = await reviewService.createReview(reviewData);
+      onReviewSubmitted(newReview);
+      setRating(0);
+      setComment('');
     } catch (err) {
-      setError(err.message || "Failed to submit review. Please try again.")
+      setError(err.response?.data?.message || 'Failed to submit review. Please try again.');
+      console.error('Error submitting review:', err);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="review-form-container">
       <h3>Write a Review</h3>
-
       {error && <div className="error-message">{error}</div>}
-
-      <form onSubmit={handleSubmit} className="review-form">
-        <div className="rating-container">
-          <p>Your Rating:</p>
-          <div className="stars">
-            {[1, 2, 3, 4, 5].map((starIndex) => (
-              <FaStar
-                key={starIndex}
-                className={`star ${(hoverRating || rating) >= starIndex ? "filled" : ""}`}
-                onClick={() => handleRatingChange(starIndex)}
-                onMouseEnter={() => handleMouseEnter(starIndex)}
-                onMouseLeave={handleMouseLeave}
-              />
-            ))}
+      
+      <form onSubmit={handleSubmit}>
+        <div className="rating-input">
+          <label>Rating:</label>
+          <div className="star-rating">
+            {[...Array(5)].map((_, index) => {
+              const ratingValue = index + 1;
+              return (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value={ratingValue}
+                    onClick={() => setRating(ratingValue)}
+                  />
+                  <FaStar
+                    className="star"
+                    color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                    size={25}
+                    onMouseEnter={() => setHover(ratingValue)}
+                    onMouseLeave={() => setHover(0)}
+                  />
+                </label>
+              );
+            })}
           </div>
         </div>
 
-        <div className="comment-container">
-          <label htmlFor="review-comment">Your Review:</label>
+        <div className="comment-input">
+          <label htmlFor="comment">Your Review:</label>
           <textarea
-            id="review-comment"
+            id="comment"
             value={comment}
-            onChange={handleCommentChange}
+            onChange={(e) => setComment(e.target.value)}
             placeholder="Share your experience with this course..."
-            rows={4}
-            required
+            rows="4"
           />
         </div>
 
-        <button type="submit" className="submit-button" disabled={submitting}>
-          {submitting ? "Submitting..." : "Submit Review"}
+        <button 
+          type="submit" 
+          className="submit-button"
+          disabled={submitting}
+        >
+          {submitting ? 'Submitting...' : 'Submit Review'}
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ReviewForm
+export default ReviewForm;
 

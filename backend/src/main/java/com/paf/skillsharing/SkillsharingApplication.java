@@ -2,12 +2,12 @@ package com.paf.skillsharing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-public class SkillsharingApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SkillsharingApplication.class, args);
-	}
-
-}
+@EnableJpaRepositories(basePackages = "com.paf.skillsharing.repository")
+public class SkillSharingApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SkillSharingApplication.class, args);
+    }
+} 

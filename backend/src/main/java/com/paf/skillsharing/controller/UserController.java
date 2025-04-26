@@ -80,7 +80,8 @@ public class UserController {
                 responseUser.setId(user.getId());
                 responseUser.setName(user.getName());
                 responseUser.setEmail(user.getEmail());
-                responseUser.setPhone(user.getPhone());
+                responseUser.setUsername(user.getUsername());
+                responseUser.setImage(user.getImage());
                 
                 response.put("user", responseUser);
                 return ResponseEntity.ok(response);

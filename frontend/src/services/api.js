@@ -1,9 +1,7 @@
 import axios from "axios"
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api"
-
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: "http://localhost:8080/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,17 +24,11 @@ api.interceptors.request.use(
 
 // Add a response interceptor to handle common errors
 api.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  (response) => response,
   (error) => {
-    if (error.response) {
-      // Handle 401 Unauthorized errors
-      if (error.response.status === 401) {
-        localStorage.removeItem("token")
-        window.location.href = "/login"
-      }
-      return Promise.reject(error.response.data)
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token")
+      window.location.href = "/login"
     }
     return Promise.reject(error)
   }

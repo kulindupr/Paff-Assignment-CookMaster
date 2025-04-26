@@ -1,53 +1,54 @@
 "use client"
 
-import { useState } from "react"
-import ReviewItem from "./ReviewItem"
-import Pagination from "../common/Pagination"
+import React from 'react';
+import { FaStar } from 'react-icons/fa';
 import "../../styles/ReviewList.css"
 
-const ReviewList = ({ reviews, onReviewUpdate, onReviewDelete }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const reviewsPerPage = 5
-
-  // Get current reviews
-  const indexOfLastReview = currentPage * reviewsPerPage
-  const indexOfFirstReview = indexOfLastReview - reviewsPerPage
-  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview)
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    // Scroll to top of review list
-    document.querySelector(".review-list-container").scrollIntoView({ behavior: "smooth" })
-  }
-
-  if (reviews.length === 0) {
+const ReviewList = ({ reviews }) => {
+  if (!reviews || reviews.length === 0) {
     return (
       <div className="no-reviews">
         <p>No reviews yet. Be the first to review this course!</p>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="review-list-container">
-      <h3>Student Reviews ({reviews.length})</h3>
-
-      <div className="review-list">
-        {currentReviews.map((review) => (
-          <ReviewItem key={review._id} review={review} onUpdate={onReviewUpdate} onDelete={onReviewDelete} />
-        ))}
-      </div>
-
-      {reviews.length > reviewsPerPage && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(reviews.length / reviewsPerPage)}
-          onPageChange={handlePageChange}
-        />
-      )}
+    <div className="reviews-list">
+      {reviews.map((review) => (
+        <div key={review.id} className="review-card">
+          <div className="review-header">
+            <img 
+              src={review.userImage} 
+              alt={review.userName} 
+              className="reviewer-avatar"
+            />
+            <div className="reviewer-info">
+              <h4>{review.userName}</h4>
+              <div className="review-meta">
+                <div className="review-rating">
+                  {[...Array(5)].map((_, index) => (
+                    <FaStar
+                      key={index}
+                      color={index < review.rating ? '#ffc107' : '#e4e5e9'}
+                      size={16}
+                    />
+                  ))}
+                </div>
+                <span className="review-date">
+                  {new Date(review.date).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="review-content">
+            <p>{review.comment}</p>
+          </div>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
 export default ReviewList
 
