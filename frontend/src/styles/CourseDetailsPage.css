@@ -1,0 +1,537 @@
+.course-details-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.course-hero {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-hero-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.course-hero h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.course-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.course-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #666;
+}
+
+.feature-item svg {
+  color: #4CAF50;
+  font-size: 1.25rem;
+}
+
+.course-price {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.course-hero-image {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.course-content {
+  display: grid;
+  gap: 3rem;
+}
+
+.course-description h2,
+.course-instructor h2,
+.course-curriculum h2,
+.course-certificate h2,
+.course-requirements h2,
+.course-testimonials h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.course-description p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.course-requirements ul {
+  list-style-type: none;
+  padding-left: 1.5rem;
+}
+
+.course-requirements li {
+  color: #666;
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.course-requirements li:before {
+  content: "•";
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+}
+
+.instructor-profile {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.instructor-profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.instructor-info h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.instructor-info p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.instructor-specialties h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.instructor-specialties ul {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.instructor-specialties li {
+  background: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.curriculum-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.curriculum-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.curriculum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.curriculum-header h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.duration {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.curriculum-item ul {
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+.curriculum-item li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.curriculum-item li:before {
+  content: "•";
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+}
+
+.certificate-preview {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-preview img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.certificate-info h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.certificate-info p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.certificate-benefits {
+  list-style-type: none;
+  padding-left: 1.5rem;
+}
+
+.certificate-benefits li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.certificate-benefits li:before {
+  content: "✓";
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-author strong {
+  color: #333;
+}
+
+.testimonial-author span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.enroll-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.enroll-button:hover {
+  background-color: #45a049;
+}
+
+.what-you-will-learn {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.learning-points {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.learning-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #666;
+}
+
+.check-icon {
+  color: #4CAF50;
+  margin-top: 0.25rem;
+}
+
+.sample-recipes {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.recipe-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.recipe-card h3 {
+  padding: 1rem;
+  color: #333;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.recipe-card p {
+  padding: 0 1rem 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.instructor-experience {
+  margin-top: 1.5rem;
+}
+
+.instructor-experience h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.instructor-experience ul {
+  list-style-type: none;
+  padding-left: 1.5rem;
+}
+
+.instructor-experience li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.instructor-experience li:before {
+  content: "•";
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+}
+
+.curriculum-content {
+  margin-top: 1rem;
+}
+
+.curriculum-content h4 {
+  color: #333;
+  margin: 1rem 0 0.5rem;
+}
+
+.lessons-list {
+  list-style-type: none;
+  padding-left: 1.5rem;
+}
+
+.lessons-list li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.lessons-list li:before {
+  content: "→";
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-author strong {
+  color: #333;
+}
+
+.testimonial-author span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .course-hero {
+    flex-direction: column;
+  }
+
+  .course-hero-image {
+    width: 100%;
+    height: 250px;
+  }
+
+  .course-meta {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .course-features {
+    grid-template-columns: 1fr;
+  }
+
+  .instructor-profile,
+  .certificate-preview {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .instructor-profile img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .instructor-specialties ul {
+    justify-content: center;
+  }
+
+  .curriculum-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-points {
+    grid-template-columns: 1fr;
+  }
+
+  .recipes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-header {
+    flex-direction: column;
+    text-align: center;
+  }
+} 

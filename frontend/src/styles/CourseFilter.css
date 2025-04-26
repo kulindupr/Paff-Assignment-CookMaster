@@ -1,0 +1,145 @@
+.course-filter {
+    background-color: var(--background-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .filter-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin: 0;
+  }
+  
+  .filter-icon {
+    color: var(--primary-color);
+  }
+  
+  .close-filter {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close-filter:hover {
+    color: var(--error-color);
+  }
+  
+  .filter-body {
+    padding: 1.25rem;
+  }
+  
+  .filter-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+  
+  .filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .filter-group input,
+  .filter-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+  }
+  
+  .filter-group input:focus,
+  .filter-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .filter-tag {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--background-light);
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .filter-tag:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+  }
+  
+  .filter-tag.selected {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .filter-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .clear-filters-btn {
+    padding: 0.75rem 1rem;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .clear-filters-btn:hover {
+    background-color: var(--background-light);
+  }
+  
+  .apply-filters-btn {
+    padding: 0.75rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .apply-filters-btn:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .filter-header h3 {
+      font-size: 1.1rem;
+    }
+  }
+  
+  

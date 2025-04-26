@@ -1,0 +1,103 @@
+.certificate-card {
+    background-color: var(--background-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .certificate-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .certificate-title {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin: 0 0 0.5rem;
+  }
+  
+  .certificate-date {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .certificate-preview {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .certificate-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .certificate-card:hover .certificate-preview img {
+    transform: scale(1.05);
+  }
+  
+  .certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .certificate-number {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .certificate-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .download-button,
+  .view-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .download-button:hover,
+  .view-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .certificate-header {
+      padding: 1rem;
+    }
+  
+    .certificate-title {
+      font-size: 1.1rem;
+    }
+  
+    .certificate-preview {
+      height: 180px;
+    }
+  
+    .certificate-footer {
+      padding: 1rem;
+    }
+  }
+  
+  
