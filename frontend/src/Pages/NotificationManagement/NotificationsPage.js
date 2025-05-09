@@ -6,7 +6,6 @@ import NavBar from '../../Components/NavBar/NavBar';
 import { MdOutlineMarkChatRead } from "react-icons/md";
 
 //           <input
-//             type="password"
 function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const userId = localStorage.getItem('userID');
