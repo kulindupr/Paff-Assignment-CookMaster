@@ -3,6 +3,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import GoogalLogo from './img/glogo.png';
 import { IoMdAdd } from "react-icons/io";
 import './UserRegister.css';
+// import { GoogleLogin } from 'react-google-login';
 
 function UserRegister() {
     const [formData, setFormData] = useState({
