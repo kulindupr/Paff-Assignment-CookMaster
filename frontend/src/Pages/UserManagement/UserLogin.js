@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './user.css'
 import GoogalLogo from './img/glogo.png'
+// import { GoogleLogin } from 'react-google-login';
 
 function UserLogin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
