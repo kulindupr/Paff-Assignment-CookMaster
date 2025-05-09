@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import NavBar from '../../Components/NavBar/NavBar';
 import './AddNewPost.css'; 
-
+//* Add your CSS styles here */
 function AddNewPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
