@@ -4,7 +4,7 @@ import { FaEnvelope, FaPhone, FaTools, FaEdit } from 'react-icons/fa';
 import './UserProfile.css';
 import Pro from './img/img.png';
 import NavBar from '../../Components/NavBar/NavBar';
-
+// import { GoogleLogin } from 'react-google-login';
 export const fetchUserDetails = async (userId) => {
     try {
         const response = await fetch(`http://localhost:8080/user/${userId}`);
