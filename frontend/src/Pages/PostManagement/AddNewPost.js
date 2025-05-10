@@ -392,7 +392,7 @@ function AddNewPost() {
                   e.target.style.boxShadow = '0 4px 12px rgba(255, 111, 97, 0.3)';
                 }}
               >
-               crate
+                Create Post
               </button>
             </div>
           </form>
