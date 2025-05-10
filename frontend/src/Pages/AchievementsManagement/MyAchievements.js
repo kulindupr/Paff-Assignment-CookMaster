@@ -27,6 +27,7 @@ function MyAchievements() {
       .catch((error) => console.error('Error fetching Achievements data:', error));
   }, [userId]);
 
+  // Function to handle delete action
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this Achievement?');
     if (!confirmDelete) {
