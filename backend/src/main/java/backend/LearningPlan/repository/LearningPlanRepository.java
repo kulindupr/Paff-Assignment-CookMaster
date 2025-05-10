@@ -7,5 +7,5 @@ import java.util.List;
 public interface LearningPlanRepository extends MongoRepository<LearningPlanModel, String> {
     void deleteByPostOwnerID(String postOwnerID);
     List<LearningPlanModel> findByPostOwnerID(String postOwnerID);
-    List<LearningPlanModel> findByPostOwnerName(String postOwnerName); // New method
+    List<LearningPlanModel> findByPostOwnerName(String postOwnerName); 
 }
