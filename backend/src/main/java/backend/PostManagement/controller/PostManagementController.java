@@ -209,7 +209,7 @@ public class PostManagementController {
                     post.getLikes().put(userID, !post.getLikes().getOrDefault(userID, false));
                     postRepository.save(post);
 
-                    // Create a notification for the post owner
+                    // Create a notification for the post owner.
                     if (!userID.equals(post.getUserID())) {
                         String userFullName = userRepository.findById(userID)
                                 .map(user -> user.getFullname())
