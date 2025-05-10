@@ -924,7 +924,22 @@ function AllPost() {
                       </div>
                     ))}
                   </div>
-                 color 0.3s'
+                  {/* Download PDF button at the bottom of each post */}
+                  <div style={{ textAlign: 'right', marginTop: '15px' }}>
+                    <button
+                      className="pdf-download-btn"
+                      onClick={() => handleDownloadPDF(post.id)}
+                      style={{
+                        backgroundColor: '#4285F4',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(66, 133, 244, 0.15)',
+                        transition: 'background-color 0.3s'
                       }}
                       onMouseOver={e => e.currentTarget.style.backgroundColor = '#3367D6'}
                       onMouseOut={e => e.currentTarget.style.backgroundColor = '#4285F4'}
