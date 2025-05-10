@@ -37,6 +37,13 @@
   color: #555;
 }
 
+.Auth_input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
 
 .Auth_button {
   width: 100%;
