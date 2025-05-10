@@ -304,13 +304,7 @@ function AddNewPost() {
                 </label>
               </div>
               
-              {mediaPreviews.length > 0 && (
-                <div className="media-preview-grid" style={{ 
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-                  gap: '15px',
-                  marginTop: '20px'
-                }}>
+             
                   {mediaPreviews.map((preview, index) => (
                     <div key={index} className="media-preview-item" style={{ 
                       position: 'relative',
