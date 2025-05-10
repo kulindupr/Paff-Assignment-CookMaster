@@ -68,6 +68,7 @@ function NavBar() {
             <div className="nav_con">
                 <div className='nav_item_set'>
                     <div className='logo_section'>
+                        
                         <span className='site_name'>Cook Master</span>
                     </div>
                     <div className='nav_bar_item'>
