@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
 import AddLearningPlan from "./Pages/LearningPlan/AddLearningPlan";
-import AllLearningPlan from "./Pages/LearningPlan/AllLearningPlan";
+import AllLearningPlan from "./Pages/LearningPlan/AllLearningPlan";//all plan
 import UpdateLearningPlan from "./Pages/LearningPlan/UpdateLearningPlan";
 import UserLogin from "./Pages/UserManagement/UserLogin";
 import UserRegister from "./Pages/UserManagement/UserRegister";
@@ -19,6 +19,7 @@ import MyAchievements from "./Pages/AchievementsManagement/MyAchievements";
 import MyAllPost from "./Pages/PostManagement/MyAllPost";
 import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
 import MyLearningPlan from "./Pages/LearningPlan/MyLearningPlan";
+import Home from "./Pages/Home/Home";
 
 function ProtectedRoute({ children }) {
   const userID = localStorage.getItem("userID");
@@ -56,7 +57,8 @@ function App() {
       <React.Fragment>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<UserLogin />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<UserLogin />} />
           <Route path="/register" element={<UserRegister />} />
 
           {/* Protected Routes */}

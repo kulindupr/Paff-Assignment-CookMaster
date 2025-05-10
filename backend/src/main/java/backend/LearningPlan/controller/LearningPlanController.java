@@ -37,7 +37,7 @@ public class LearningPlanController {
     private NotificationRepository notificationRepository;
 
     //Insert
-    @PostMapping("/learningPlan")//create new learning plan
+    @PostMapping("/learningPlan")//create new plan
     public LearningPlanModel newLearningSystemModel(@RequestBody LearningPlanModel newLearningPlanModel) {
         System.out.println("Received data: " + newLearningPlanModel); // Debugging line
         if (newLearningPlanModel.getPostOwnerID() == null || newLearningPlanModel.getPostOwnerID().isEmpty()) {
