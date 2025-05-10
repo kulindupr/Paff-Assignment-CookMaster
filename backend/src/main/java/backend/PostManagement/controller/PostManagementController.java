@@ -246,7 +246,7 @@ public class PostManagementController {
                     post.getComments().add(comment);
                     postRepository.save(post);
 
-                    // Create a notification for the post owner
+                    // Create a notification for the post owner.
                     if (!userID.equals(post.getUserID())) {
                         String message = String.format("%s commented on your post: %s", userFullName, post.getTitle());
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
