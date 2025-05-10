@@ -189,7 +189,7 @@ public class PostManagementController {
 
         if (!post.getMedia().remove(mediaUrl)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Media file not found in post.");
-        }
+        } 
 
         try {
             Path filePath = Paths.get(uploadDir, mediaUrl.replace("/media/", ""));
