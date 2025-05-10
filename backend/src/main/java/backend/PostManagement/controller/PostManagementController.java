@@ -252,7 +252,7 @@ public class PostManagementController {
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
                         notificationRepository.save(notification); 
-                    }
+                    } 
 
                     return ResponseEntity.ok(post);
                 })
