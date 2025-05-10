@@ -23,7 +23,7 @@ public class LearningPlanModel {
     private String createdAt;
     private String imageUrl;
     private int templateID; // New field for templateID
-    private String startDate; 
+    private String startDate; // New field
     private String endDate;   // New field
     private String category;  // New field
 
