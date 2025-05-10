@@ -24,7 +24,7 @@ function AllPost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [followedUsers, setFollowedUsers] = useState([]); // State to track followed users
-  const [newComment, setNewComment] = useState({}); // State for new comments
+  const [newComment, setNewComment] = useState({}); // State for new comments.
   const [editingComment, setEditingComment] = useState({}); // State for editing comments
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const navigate = useNavigate();
@@ -772,7 +772,7 @@ function AllPost() {
                                     style={{
                                       color: '#4285F4',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px
+                                      fontSize: '24px', // Further increased from 20px.
                                       margin: '0 5px',
                                       padding: '8px', // Further increased from 6px
                                       borderRadius: '50%',

@@ -189,7 +189,7 @@ public class PostManagementController {
 
         if (!post.getMedia().remove(mediaUrl)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Media file not found in post.");
-        }
+        } 
 
         try {
             Path filePath = Paths.get(uploadDir, mediaUrl.replace("/media/", ""));
@@ -207,13 +207,13 @@ public class PostManagementController {
         return postRepository.findById(postId)
                 .map(post -> {
                     post.getLikes().put(userID, !post.getLikes().getOrDefault(userID, false));
-                    postRepository.save(post);
+                    postRepository.save(post); 
 
-                    // Create a notification for the post owner
+                    // Create a notification for the post owner.
                     if (!userID.equals(post.getUserID())) {
                         String userFullName = userRepository.findById(userID)
                                 .map(user -> user.getFullname())
-                                .orElse("Someone");
+                                .orElse("Someone"); 
                         String message = String.format("%s liked your %s post", userFullName, post.getTitle());
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
@@ -223,7 +223,7 @@ public class PostManagementController {
                     return ResponseEntity.ok(post);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
+    } 
 
     @PostMapping("/{postId}/comment")
     public ResponseEntity<PostManagementModel> addComment(@PathVariable String postId, @RequestBody Map<String, String> request) {
@@ -232,27 +232,27 @@ public class PostManagementController {
 
         return postRepository.findById(postId)
                 .map(post -> {
-                    Comment comment = new Comment();
+                    Comment comment  = new Comment();
                     comment.setId(UUID.randomUUID().toString());
                     comment.setUserID(userID);
-                    comment.setContent(content);
+                    comment.setContent(content); 
 
-                    // Fetch user's full name
+                    // Fetch user's full name.
                     String userFullName = userRepository.findById(userID)
                             .map(user -> user.getFullname())
                             .orElse("Anonymous");
                     comment.setUserFullName(userFullName);
-
+ 
                     post.getComments().add(comment);
                     postRepository.save(post);
 
-                    // Create a notification for the post owner
+                    // Create a notification for the post owner.
                     if (!userID.equals(post.getUserID())) {
                         String message = String.format("%s commented on your post: %s", userFullName, post.getTitle());
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
-                        notificationRepository.save(notification);
-                    }
+                        notificationRepository.save(notification); 
+                    } 
 
                     return ResponseEntity.ok(post);
                 })
@@ -265,7 +265,7 @@ public class PostManagementController {
             @PathVariable String commentId,
             @RequestBody Map<String, String> request) {
         String userID = request.get("userID");
-        String content = request.get("content");
+        String content = request.get("content"); 
 
         return postRepository.findById(postId)
                 .map(post -> {
@@ -277,7 +277,7 @@ public class PostManagementController {
                     return ResponseEntity.ok(post);
                 })
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
+    } 
 
     @DeleteMapping("/{postId}/comment/{commentId}")
     public ResponseEntity<PostManagementModel> deleteComment(
@@ -292,7 +292,7 @@ public class PostManagementController {
                     postRepository.save(post);
                     return ResponseEntity.ok(post);
                 })
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
@@ -300,3 +300,4 @@ public class PostManagementController {
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("File size exceeds the maximum limit!");
     }
 }
+ 
