@@ -772,7 +772,7 @@ function AllPost() {
                                     style={{
                                       color: '#4285F4',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px
+                                      fontSize: '24px', // Further increased from 20px.
                                       margin: '0 5px',
                                       padding: '8px', // Further increased from 6px
                                       borderRadius: '50%',
