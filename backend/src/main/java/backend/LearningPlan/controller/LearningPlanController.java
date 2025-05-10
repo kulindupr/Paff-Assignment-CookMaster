@@ -41,7 +41,7 @@ public class LearningPlanController {
     public LearningPlanModel newLearningSystemModel(@RequestBody LearningPlanModel newLearningPlanModel) {
         System.out.println("Received data: " + newLearningPlanModel); // Debugging line
         if (newLearningPlanModel.getPostOwnerID() == null || newLearningPlanModel.getPostOwnerID().isEmpty()) {
-            throw new IllegalArgumentException("PostOwnerID is required."); // Ensure postOwnerID is provided
+            throw new IllegalArgumentException("PostOwnerID is required."); // Ensure postOwnerID is provided...
         }
         // Fetch user's full name from UserRepository
         String postOwnerName = userRepository.findById(newLearningPlanModel.getPostOwnerID())

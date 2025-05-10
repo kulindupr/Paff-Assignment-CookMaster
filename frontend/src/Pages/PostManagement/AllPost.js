@@ -25,10 +25,12 @@ function AllPost() {
   const [showMyPosts, setShowMyPosts] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
+
   const [followedUsers, setFollowedUsers] = useState([]);
   const [newComment, setNewComment] = useState({});
   const [editingComment, setEditingComment] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+
   const navigate = useNavigate();
   const loggedInUserID = localStorage.getItem('userID');
 
@@ -783,7 +785,9 @@ function AllPost() {
                                     style={{
                                       color: '#4285F4',
                                       cursor: 'pointer',
+
                                       fontSize: '24px',
+
                                       margin: '0 5px',
                                       padding: '8px',
                                       borderRadius: '50%',

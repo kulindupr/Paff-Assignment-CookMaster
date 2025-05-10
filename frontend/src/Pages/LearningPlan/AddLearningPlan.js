@@ -167,11 +167,11 @@ function AddLearningPlan() {
           {/* Template 1 */}
           <div className="template template-1">
             <p className='template_id_one'>template 1</p>
-            <p className='template_title'>{title || "Title Preview"}</p>
+            <p className='template_title'>{title || "Title Preview "}</p>
             <p className='template_dates'><HiCalendarDateRange /> {startDate} to {endDate} </p>
             <p className='template_description'>{category}</p>
             <hr></hr>
-            <p className='template_description'>{description || "Description Preview"}</p>
+            <p className='template_description'>{description || "Description Preview "}</p>
             <div className="tags_preview">
               {tags.map((tag, index) => (
                 <span key={index} className="tagname">#{tag}</span>
