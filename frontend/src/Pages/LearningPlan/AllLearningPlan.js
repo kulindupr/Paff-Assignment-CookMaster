@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './post.css';//style
+import './post.css';
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { IoIosCreate } from "react-icons/io";
-import NavBar from '../../Components/NavBar/NavBar';//navbar
+import NavBar from '../../Components/NavBar/NavBar';
 import { HiCalendarDateRange } from "react-icons/hi2";
 
 function AllLearningPlan() {
