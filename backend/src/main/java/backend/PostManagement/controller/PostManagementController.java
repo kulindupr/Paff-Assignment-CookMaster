@@ -242,7 +242,7 @@ public class PostManagementController {
                             .map(user -> user.getFullname())
                             .orElse("Anonymous");
                     comment.setUserFullName(userFullName);
-
+ 
                     post.getComments().add(comment);
                     postRepository.save(post);
 
