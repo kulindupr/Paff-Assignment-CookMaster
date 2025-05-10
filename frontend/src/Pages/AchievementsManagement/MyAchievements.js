@@ -49,7 +49,7 @@ function MyAchievements() {
       alert('Failed to delete Achievement.');
     }
   };
-
+/// Function to handle search input
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
