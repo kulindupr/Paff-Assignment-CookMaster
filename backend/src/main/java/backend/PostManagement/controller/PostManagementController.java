@@ -213,7 +213,7 @@ public class PostManagementController {
                     if (!userID.equals(post.getUserID())) {
                         String userFullName = userRepository.findById(userID)
                                 .map(user -> user.getFullname())
-                                .orElse("Someone");
+                                .orElse("Someone"); 
                         String message = String.format("%s liked your %s post", userFullName, post.getTitle());
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
