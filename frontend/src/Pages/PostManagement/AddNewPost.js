@@ -237,23 +237,7 @@ function AddNewPost() {
               />
             </div>
             
-            <div className="form-group">
-              <label className="form-label" style={{ color: '#333', fontWeight: 'bold' }}>Category</label>
-              <select
-                className="form-select"
-                value={categories}
-                onChange={(e) => setCategories(e.target.value)}
-                required
-                style={{ 
-                  width: '100%', 
-                  padding: '12px', 
-                  borderRadius: '8px', 
-                  border: '1px solid #ccc', 
-                  fontSize: '16px', 
-                  boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.1)',
-                  backgroundColor: '#fff'
-                }}
-              >
+            <
                 <option value="" disabled>Select a category</option>
                 <option value="Breakfast recipes">Breakfast recipes</option>
                 <option value="Lunch recipes">Lunch recipes</option>

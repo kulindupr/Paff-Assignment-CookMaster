@@ -42,24 +42,7 @@ function MyAllPost() {
         setPosts(userPosts);
         setFilteredPosts(userPosts); // Initially show filtered posts
 
-        // Fetch post owners' names
-        const userIDs = [...new Set(userPosts.map((post) => post.userID))]; // Get unique userIDs
-        const ownerPromises = userIDs.map((userID) =>
-          axios.get(`http://localhost:8080/user/${userID}`)
-            .then((res) => ({
-              userID,
-              fullName: res.data.fullname,
-            }))
-            .catch((error) => {
-              console.error(`Error fetching user details for userID ${userID}:`, error);
-              return { userID, fullName: 'Anonymous' };
-            })
-        );
-        const owners = await Promise.all(ownerPromises);
-        const ownerMap = owners.reduce((acc, owner) => {
-          acc[owner.userID] = owner.fullName;
-          return acc;
-        }, {});
+        /
         console.log('Post Owners Map:', ownerMap); // Debug log to verify postOwners map
         setPostOwners(ownerMap);
       } catch (error) {
