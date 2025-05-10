@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { IoSend } from "react-icons/io5";
@@ -13,6 +13,8 @@ import { GrUpdate } from "react-icons/gr";
 import { FiSave } from "react-icons/fi";
 import { TbPencilCancel } from "react-icons/tb";
 import { FaCommentAlt } from "react-icons/fa";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import './AllPost.css';
 Modal.setAppElement('#root');
 
@@ -23,12 +25,17 @@ function AllPost() {
   const [showMyPosts, setShowMyPosts] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const [followedUsers, setFollowedUsers] = useState([]); // State to track followed users
-  const [newComment, setNewComment] = useState({}); // State for new comments.
-  const [editingComment, setEditingComment] = useState({}); // State for editing comments
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+
+  const [followedUsers, setFollowedUsers] = useState([]);
+  const [newComment, setNewComment] = useState({});
+  const [editingComment, setEditingComment] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+
   const navigate = useNavigate();
-  const loggedInUserID = localStorage.getItem('userID'); // Get the logged-in user's ID
+  const loggedInUserID = localStorage.getItem('userID');
+
+  // Refs for each post
+  const postRefs = useRef({});
 
   useEffect(() => {
     // Fetch all posts from the backend
@@ -36,10 +43,10 @@ function AllPost() {
       try {
         const response = await axios.get('http://localhost:8080/posts');
         setPosts(response.data);
-        setFilteredPosts(response.data); // Initially show all posts
+        setFilteredPosts(response.data);
 
         // Fetch post owners' names
-        const userIDs = [...new Set(response.data.map((post) => post.userID))]; // Get unique userIDs
+        const userIDs = [...new Set(response.data.map((post) => post.userID))];
         const ownerPromises = userIDs.map((userID) =>
           axios.get(`http://localhost:8080/user/${userID}`)
             .then((res) => ({
@@ -48,8 +55,6 @@ function AllPost() {
             }))
             .catch((error) => {
               if (error.response && error.response.status === 404) {
-                // Handle case where user is deleted
-                console.warn(`User with ID ${userID} not found. Removing their posts.`);
                 setPosts((prevPosts) => prevPosts.filter((post) => post.userID !== userID));
                 setFilteredPosts((prevFilteredPosts) => prevFilteredPosts.filter((post) => post.userID !== userID));
               } else {
@@ -63,10 +68,9 @@ function AllPost() {
           acc[owner.userID] = owner.fullName;
           return acc;
         }, {});
-        console.log('Post Owners Map:', ownerMap); // Debug log to verify postOwners map
         setPostOwners(ownerMap);
       } catch (error) {
-        console.error('Error fetching posts:', error); // Log error for fetching posts
+        console.error('Error fetching posts:', error);
       }
     };
 
@@ -91,15 +95,13 @@ function AllPost() {
 
   const handleDelete = async (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
-    if (!confirmDelete) {
-      return; // Exit if the user cancels the confirmation
-    }
+    if (!confirmDelete) return;
 
     try {
       await axios.delete(`http://localhost:8080/posts/${postId}`);
       alert('Post deleted successfully!');
-      setPosts(posts.filter((post) => post.id !== postId)); // Remove the deleted post from the UI
-      setFilteredPosts(filteredPosts.filter((post) => post.id !== postId)); // Update filtered posts
+      setPosts(posts.filter((post) => post.id !== postId));
+      setFilteredPosts(filteredPosts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error('Error deleting post:', error);
       alert('Failed to delete post.');
@@ -107,18 +109,16 @@ function AllPost() {
   };
 
   const handleUpdate = (postId) => {
-    navigate(`/updatePost/${postId}`); // Navigate to the UpdatePost page with the post ID
+    navigate(`/updatePost/${postId}`);
   };
 
   const handleMyPostsToggle = () => {
     if (showMyPosts) {
-      // Show all posts
       setFilteredPosts(posts);
     } else {
-      // Filter posts by logged-in user ID
       setFilteredPosts(posts.filter((post) => post.userID === loggedInUserID));
     }
-    setShowMyPosts(!showMyPosts); // Toggle the state
+    setShowMyPosts(!showMyPosts);
   };
 
   const handleLike = async (postId) => {
@@ -132,7 +132,6 @@ function AllPost() {
         params: { userID },
       });
 
-      // Update the specific post's likes in the state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId ? { ...post, likes: response.data.likes } : post
@@ -157,11 +156,9 @@ function AllPost() {
     }
     try {
       if (followedUsers.includes(postOwnerID)) {
-        // Unfollow logic
         await axios.put(`http://localhost:8080/user/${userID}/unfollow`, { unfollowUserID: postOwnerID });
         setFollowedUsers(followedUsers.filter((id) => id !== postOwnerID));
       } else {
-        // Follow logic
         await axios.put(`http://localhost:8080/user/${userID}/follow`, { followUserID: postOwnerID });
         setFollowedUsers([...followedUsers, postOwnerID]);
       }
@@ -176,7 +173,7 @@ function AllPost() {
       alert('Please log in to comment.');
       return;
     }
-    const content = newComment[postId] || ''; // Get the comment content for the specific post
+    const content = newComment[postId] || '';
     if (!content.trim()) {
       alert('Comment cannot be empty.');
       return;
@@ -187,7 +184,6 @@ function AllPost() {
         content,
       });
 
-      // Update the specific post's comments in the state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId ? { ...post, comments: response.data.comments } : post
@@ -213,7 +209,6 @@ function AllPost() {
         params: { userID },
       });
 
-      // Update state to remove the deleted comment
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -242,7 +237,6 @@ function AllPost() {
         content,
       });
 
-      // Update the comment in state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -269,7 +263,7 @@ function AllPost() {
         )
       );
 
-      setEditingComment({}); // Clear editing state
+      setEditingComment({});
     } catch (error) {
       console.error('Error saving comment:', error);
     }
@@ -279,7 +273,6 @@ function AllPost() {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // Filter posts based on title, description, or category
     const filtered = posts.filter(
       (post) =>
         post.title.toLowerCase().includes(query) ||
@@ -297,6 +290,25 @@ function AllPost() {
   const closeModal = () => {
     setSelectedMedia(null);
     setIsModalOpen(false);
+  };
+
+  // PDF Download Handler
+  const handleDownloadPDF = async (postId) => {
+    const input = postRefs.current[postId];
+    if (!input) return;
+    // Hide action buttons before rendering to canvas
+    const actionBtns = input.querySelectorAll('.pdf-hide');
+    actionBtns.forEach(btn => btn.style.display = 'none');
+    await html2canvas(input, { useCORS: true }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`post-${postId}.pdf`);
+    });
+    // Restore action buttons
+    actionBtns.forEach(btn => btn.style.display = '');
   };
 
   return (
@@ -319,7 +331,6 @@ function AllPost() {
         }}></div>
         
         <NavBar />
-        
         <div className='continSection' style={{ 
           position: 'relative',
           zIndex: 2,
@@ -351,7 +362,6 @@ function AllPost() {
               }}
             />
           </div>
-          
           <div className='add_new_btn' 
             onClick={() => (window.location.href = '/addNewPost')}
             style={{
@@ -381,7 +391,6 @@ function AllPost() {
           >
             <IoIosCreate className='add_new_btn_icon' style={{ fontSize: '24px' }}/>
           </div>
-          
           <div className='post_card_continer'>
             {filteredPosts.length === 0 ? (
               <div className='not_found_box' style={{
@@ -424,14 +433,18 @@ function AllPost() {
               </div>
             ) : (
               filteredPosts.map((post) => (
-                <div key={post.id} className='post_card' style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                  borderRadius: '15px',
-                  padding: '25px',
-                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
-                  marginBottom: '30px',
-                  transition: 'transform 0.3s, box-shadow 0.3s'
-                }}>
+                <div
+                  key={post.id}
+                  className='post_card'
+                  ref={el => postRefs.current[post.id] = el}
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '15px',
+                    padding: '25px',
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
+                    marginBottom: '30px',
+                    transition: 'transform 0.3s, box-shadow 0.3s'
+                  }}>
                   <div className='user_details_card' style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -448,7 +461,7 @@ function AllPost() {
                       }}>{postOwners[post.userID] || 'Anonymous'}</p>
                       {post.userID !== loggedInUserID && (
                         <button
-                          className={followedUsers.includes(post.userID) ? 'flow_btn_unfalow' : 'flow_btn'}
+                          className={`pdf-hide ${followedUsers.includes(post.userID) ? 'flow_btn_unfalow' : 'flow_btn'}`}
                           onClick={() => handleFollowToggle(post.userID)}
                           style={{
                             backgroundColor: followedUsers.includes(post.userID) ? '#FF6F61' : '#4285F4',
@@ -471,20 +484,20 @@ function AllPost() {
                     </div>
                     {post.userID === loggedInUserID && (
                       <div>
-                        <div className='action_btn_icon_post' style={{ display: 'flex', gap: '10px' }}>
+                        <div className='action_btn_icon_post pdf-hide' style={{ display: 'flex', gap: '10px' }}>
                           <FaEdit
                             onClick={() => handleUpdate(post.id)} 
                             className='action_btn_icon'
                             style={{
                               color: '#4285F4',
                               cursor: 'pointer',
-                              fontSize: '24px', // Increased from 18px
+                              fontSize: '24px',
                               transition: 'transform 0.2s',
-                              padding: '10px', // Increased from 8px
+                              padding: '10px',
                               borderRadius: '50%',
                               backgroundColor: 'rgba(66, 133, 244, 0.1)',
-                              width: '45px', // Added fixed width
-                              height: '45px', // Added fixed height
+                              width: '45px',
+                              height: '45px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center'
@@ -504,13 +517,13 @@ function AllPost() {
                             style={{
                               color: '#FF6F61',
                               cursor: 'pointer',
-                              fontSize: '24px', // Increased from 18px
+                              fontSize: '24px',
                               transition: 'transform 0.2s',
-                              padding: '10px', // Increased from 8px
+                              padding: '10px',
                               borderRadius: '50%',
                               backgroundColor: 'rgba(255, 111, 97, 0.1)',
-                              width: '45px', // Added fixed width
-                              height: '45px', // Added fixed height
+                              width: '45px',
+                              height: '45px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center'
@@ -623,7 +636,7 @@ function AllPost() {
                   }}>
                     <div className='like_btn_con' style={{ display: 'flex', alignItems: 'center' }}>
                       <BiSolidLike
-                        className={post.likes?.[localStorage.getItem('userID')] ? 'unlikebtn' : 'likebtn'}
+                        className={`pdf-hide ${post.likes?.[localStorage.getItem('userID')] ? 'unlikebtn' : 'likebtn'}`}
                         onClick={() => handleLike(post.id)}
                         style={{
                           color: post.likes?.[localStorage.getItem('userID')] ? '#FF6F61' : '#4285F4',
@@ -646,13 +659,13 @@ function AllPost() {
                         marginLeft: '5px',
                         fontWeight: 'bold'
                       }}>
-                        {Object.values(post.likes || {}).filter((liked) => liked).length}
+                        {Object.values(post.likes || {}).filter((liked) => liked).length} Likes
                       </p>
                     </div>
                     <div>
                       <div className='like_btn_con' style={{ display: 'flex', alignItems: 'center' }}>
                         <FaCommentAlt
-                          className='combtn'
+                          className='combtn pdf-hide'
                           style={{
                             color: '#4285F4',
                             fontSize: '20px',
@@ -664,13 +677,13 @@ function AllPost() {
                           marginLeft: '5px',
                           fontWeight: 'bold'
                         }}>
-                          {post.comments?.length || 0}
+                          {post.comments?.length || 0} Comments
                         </p>
                       </div>
                     </div>
                   </div>
                   <div className='withsett'>
-                    <div className='add_comennt_con' style={{
+                    <div className='add_comennt_con pdf-hide' style={{
                       display: 'flex',
                       marginBottom: '15px'
                     }}>
@@ -760,7 +773,7 @@ function AllPost() {
                           )}
                         </div>
 
-                        <div className='coment_action_btn' style={{ marginLeft: '10px' }}>
+                        <div className='coment_action_btn pdf-hide' style={{ marginLeft: '10px' }}>
                           {comment.userID === loggedInUserID && (
                             <>
                               {editingComment.id === comment.id ? (
@@ -772,13 +785,15 @@ function AllPost() {
                                     style={{
                                       color: '#4285F4',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px.
+
+                                      fontSize: '24px',
+
                                       margin: '0 5px',
-                                      padding: '8px', // Further increased from 6px
+                                      padding: '8px',
                                       borderRadius: '50%',
                                       backgroundColor: 'rgba(66, 133, 244, 0.1)',
-                                      width: '40px', // Added fixed width
-                                      height: '40px', // Added fixed height
+                                      width: '40px',
+                                      height: '40px',
                                       display: 'flex',
                                       alignItems: 'center',
                                       justifyContent: 'center',
@@ -798,13 +813,13 @@ function AllPost() {
                                     style={{
                                       color: '#FF6F61',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px
+                                      fontSize: '24px',
                                       margin: '0 5px',
-                                      padding: '8px', // Further increased from 6px
+                                      padding: '8px',
                                       borderRadius: '50%',
                                       backgroundColor: 'rgba(255, 111, 97, 0.1)',
-                                      width: '40px', // Added fixed width
-                                      height: '40px', // Added fixed height
+                                      width: '40px',
+                                      height: '40px',
                                       display: 'flex',
                                       alignItems: 'center',
                                       justifyContent: 'center',
@@ -829,13 +844,13 @@ function AllPost() {
                                     style={{
                                       color: '#4285F4',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px
+                                      fontSize: '24px',
                                       margin: '0 5px',
-                                      padding: '8px', // Further increased from 6px
+                                      padding: '8px',
                                       borderRadius: '50%',
                                       backgroundColor: 'rgba(66, 133, 244, 0.1)',
-                                      width: '40px', // Added fixed width
-                                      height: '40px', // Added fixed height
+                                      width: '40px',
+                                      height: '40px',
                                       display: 'flex',
                                       alignItems: 'center',
                                       justifyContent: 'center',
@@ -855,13 +870,13 @@ function AllPost() {
                                     style={{
                                       color: '#FF6F61',
                                       cursor: 'pointer',
-                                      fontSize: '24px', // Further increased from 20px
+                                      fontSize: '24px',
                                       margin: '0 5px',
-                                      padding: '8px', // Further increased from 6px
+                                      padding: '8px',
                                       borderRadius: '50%',
                                       backgroundColor: 'rgba(255, 111, 97, 0.1)',
-                                      width: '40px', // Added fixed width
-                                      height: '40px', // Added fixed height
+                                      width: '40px',
+                                      height: '40px',
                                       display: 'flex',
                                       alignItems: 'center',
                                       justifyContent: 'center',
@@ -887,13 +902,13 @@ function AllPost() {
                               style={{
                                 color: '#FF6F61',
                                 cursor: 'pointer',
-                                fontSize: '24px', // Further increased from 20px
+                                fontSize: '24px',
                                 margin: '0 5px',
-                                padding: '8px', // Further increased from 6px
+                                padding: '8px',
                                 borderRadius: '50%',
                                 backgroundColor: 'rgba(255, 111, 97, 0.1)',
-                                width: '40px', // Added fixed width
-                                height: '40px', // Added fixed height
+                                width: '40px',
+                                height: '40px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -912,6 +927,29 @@ function AllPost() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                  {/* Download PDF button at the bottom of each post */}
+                  <div style={{ textAlign: 'right', marginTop: '15px' }}>
+                    <button
+                      className="pdf-download-btn"
+                      onClick={() => handleDownloadPDF(post.id)}
+                      style={{
+                        backgroundColor: '#4285F4',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(66, 133, 244, 0.15)',
+                        transition: 'background-color 0.3s'
+                      }}
+                      onMouseOver={e => e.currentTarget.style.backgroundColor = '#3367D6'}
+                      onMouseOut={e => e.currentTarget.style.backgroundColor = '#4285F4'}
+                    >
+                      Download PDF
+                    </button>
                   </div>
                 </div>
               ))
@@ -993,7 +1031,7 @@ function AllPost() {
           />
         )}
       </Modal>
-    </div >
+    </div>
   );
 }
 

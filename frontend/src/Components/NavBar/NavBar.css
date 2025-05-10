@@ -22,7 +22,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: white;
+  
+  background: linear-gradient(to right, #9bd7e1, #f2f4f7);
   z-index: 1000;
   transition: transform 0.3s ease;
   border-radius: 50px;
