@@ -207,7 +207,7 @@ public class PostManagementController {
         return postRepository.findById(postId)
                 .map(post -> {
                     post.getLikes().put(userID, !post.getLikes().getOrDefault(userID, false));
-                    postRepository.save(post);
+                    postRepository.save(post); 
 
                     // Create a notification for the post owner.
                     if (!userID.equals(post.getUserID())) {
