@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
 import AddLearningPlan from "./Pages/LearningPlan/AddLearningPlan";
-import AllLearningPlan from "./Pages/LearningPlan/AllLearningPlan";
+import AllLearningPlan from "./Pages/LearningPlan/AllLearningPlan";//all plan
 import UpdateLearningPlan from "./Pages/LearningPlan/UpdateLearningPlan";
 import UserLogin from "./Pages/UserManagement/UserLogin";
 import UserRegister from "./Pages/UserManagement/UserRegister";
