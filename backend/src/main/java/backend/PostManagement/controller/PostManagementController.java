@@ -237,7 +237,7 @@ public class PostManagementController {
                     comment.setUserID(userID);
                     comment.setContent(content); 
 
-                    // Fetch user's full name
+                    // Fetch user's full name.
                     String userFullName = userRepository.findById(userID)
                             .map(user -> user.getFullname())
                             .orElse("Anonymous");
