@@ -223,7 +223,7 @@ public class PostManagementController {
                     return ResponseEntity.ok(post);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
+    } 
 
     @PostMapping("/{postId}/comment")
     public ResponseEntity<PostManagementModel> addComment(@PathVariable String postId, @RequestBody Map<String, String> request) {
