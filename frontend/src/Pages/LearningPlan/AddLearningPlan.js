@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { IoMdAdd } from "react-icons/io";
-import './post.css';
+import './post.css';//style
 import './Templates.css'; // Import the updated CSS file
 import NavBar from '../../Components/NavBar/NavBar';
 import { FaVideo } from "react-icons/fa";

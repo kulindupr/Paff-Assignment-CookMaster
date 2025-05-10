@@ -23,7 +23,7 @@ public class AchievementsController {
     @Autowired
     private AchievementsRepository achievementsRepository;
     private final Path root = Paths.get("uploads/achievementsPost");
-    //Insert
+    //Insert achievements
     @PostMapping("/achievements")
     public AchievementsModel newAchievementsModel(@RequestBody AchievementsModel newAchievementsModel) {
         return achievementsRepository.save(newAchievementsModel);

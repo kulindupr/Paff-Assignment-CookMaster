@@ -504,3 +504,9 @@
   text-decoration: underline;
 }
 
+/* Logo styling */
+.login-box img {
+  width: 100px; /* Adjust the size of the logo */
+  margin-bottom: 20px; /* Space below the logo */
+}
+

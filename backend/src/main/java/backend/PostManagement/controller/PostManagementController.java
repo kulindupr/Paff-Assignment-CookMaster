@@ -48,7 +48,7 @@ public class PostManagementController {
             @RequestParam String userID,
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam String category, // New parameter for category
+            @RequestParam String category, // New parameter
             @RequestParam List<MultipartFile> mediaFiles) {
 
         if (mediaFiles.size() < 1 || mediaFiles.size() > 3) {
