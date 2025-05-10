@@ -251,7 +251,7 @@ public class PostManagementController {
                         String message = String.format("%s commented on your post: %s", userFullName, post.getTitle());
                         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
-                        notificationRepository.save(notification);
+                        notificationRepository.save(notification); 
                     }
 
                     return ResponseEntity.ok(post);
