@@ -891,7 +891,19 @@ function AllPost() {
                               )}
                             </>
                           )}
-                         
+                          {post.userID === loggedInUserID && comment.userID !== loggedInUserID && (
+                            <MdDelete 
+                              className='coment_btn'
+                              onClick={() => handleDeleteComment(post.id, comment.id)}
+                              style={{
+                                color: '#FF6F61',
+                                cursor: 'pointer',
+                                fontSize: '24px',
+                                margin: '0 5px',
+                                padding: '8px',
+                                borderRadius: '50%',
+                                backgroundColor: 'rgba(255, 111, 97, 0.1)',
+                                width: '40px',
                                 height: '40px',
                                 display: 'flex',
                                 alignItems: 'center',

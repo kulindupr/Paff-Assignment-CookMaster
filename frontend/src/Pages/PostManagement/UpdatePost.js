@@ -18,7 +18,25 @@ function UpdatePost() {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-   
+    // Fetch the post details
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/posts/${id}`);
+        const post = response.data;
+        setTitle(post.title || ''); // Ensure title is not undefined
+        setDescription(post.description || ''); // Ensure description is not undefined
+        setCategory(post.category || ''); // Set category
+        setExistingMedia(post.media || []); // Ensure media is an array
+        setLoading(false); // Set loading to false after data is fetched
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        alert('Failed to fetch post details.');
+        setLoading(false); // Set loading to false even if there's an error
+      }
+    };
+
+    fetchPost();
+  }, [id]);
 
   const handleDeleteMedia = async (mediaUrl) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this media file?');
