@@ -16,6 +16,7 @@ function MyAchievements() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Fetch achievements data from the server
   useEffect(() => {
     fetch('http://localhost:8080/achievements')
       .then((response) => response.json())
