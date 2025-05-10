@@ -292,7 +292,7 @@ public class PostManagementController {
                     postRepository.save(post);
                     return ResponseEntity.ok(post);
                 })
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
