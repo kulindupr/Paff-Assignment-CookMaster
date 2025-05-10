@@ -277,7 +277,7 @@ public class PostManagementController {
                     return ResponseEntity.ok(post);
                 })
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
+    } 
 
     @DeleteMapping("/{postId}/comment/{commentId}")
     public ResponseEntity<PostManagementModel> deleteComment(
